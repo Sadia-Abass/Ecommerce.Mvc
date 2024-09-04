@@ -1,4 +1,4 @@
-using EasyClothing.Model;
+using EasyClothes.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
