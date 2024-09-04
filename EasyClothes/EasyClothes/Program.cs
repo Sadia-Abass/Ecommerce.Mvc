@@ -1,3 +1,5 @@
+using EasyClothing.Model;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to container
