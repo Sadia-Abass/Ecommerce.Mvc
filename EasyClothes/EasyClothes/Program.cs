@@ -1,6 +1,14 @@
 using EasyClothes.Models;
+using EasyClothes.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("EasyClothesContextConnection") ?? throw new InvalidOperationException("Connection string 'EasyClothesContextConnection' not found.");
+
+builder.Services.AddDbContext<EasyClothesContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<EasyClothesContext>();
 
 // Add services to container
 builder.Services.AddControllersWithViews();
