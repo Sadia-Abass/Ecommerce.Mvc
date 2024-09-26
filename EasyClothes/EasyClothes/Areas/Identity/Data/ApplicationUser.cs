@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyClothes.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace EasyClothes.Areas.Identity.Data;
@@ -19,5 +20,9 @@ public class ApplicationUser : IdentityUser
     public string AddressLineTwo { get; set;} = string.Empty;
     [PersonalData]
     public string PostCode { get; set; } = string.Empty;
+    public DateTime DateJoined { get; set; }
+    public bool IsDeleted { get; set; }
+    public ICollection<Order> Orders { get; set; } = new List<Order>();
+
 }
 
