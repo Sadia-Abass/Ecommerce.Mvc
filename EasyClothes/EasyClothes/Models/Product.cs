@@ -11,6 +11,7 @@ namespace EasyClothes.Models
         public decimal Price { get; set; }
         public int SubcategoryId { get; set; }
         public Subcategory Subcategory { get; set; } = new Subcategory();
+        public ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
         public bool IsDeleted { get; set; }

@@ -10,7 +10,7 @@ namespace EasyClothes.Models
         public ApplicationUser ApplicationUser { get; set; } = new ApplicationUser();
         [Column(TypeName = "decimal(8,2)")]
         public decimal TotalAmount { get; set; }
-        public string status { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
         public DateTime OrderDate { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public Payment Payment { get; set; } = new Payment();

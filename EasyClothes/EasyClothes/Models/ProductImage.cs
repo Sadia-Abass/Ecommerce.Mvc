@@ -1,6 +1,6 @@
 ﻿namespace EasyClothes.Models
 {
-    public class PeoductImage
+    public class ProductImage
     {
         public long ProductImageId { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
