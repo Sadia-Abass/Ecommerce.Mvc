@@ -2,11 +2,14 @@
 using EasyClothes.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyClothes.Areas.Identity.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string,
+        ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin,
+        ApplicationRoleClaim, ApplicationUserToken>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -32,34 +35,76 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Applicati
 
         builder.Entity<ApplicationUser>(e =>
         {
+            // Each User can have many UserClaims
+            e.HasMany(e => e.Claims)
+                .WithOne(e => e.User)
+                .HasForeignKey(uc => uc.UserId)
+                .IsRequired();
+
+            // Each User can have many UserLogins
+            e.HasMany(e => e.Logins)
+                .WithOne(e => e.User)
+                .HasForeignKey(ul => ul.UserId)
+                .IsRequired();
+
+            // Each User can have many UserTokens
+            e.HasMany(e => e.Tokens)
+                .WithOne(e => e.User)
+                .HasForeignKey(ut => ut.UserId)
+                .IsRequired();
+
+            // Each User can have many entries in the UserRole join table
+            e.HasMany(e => e.UserRoles)
+                .WithOne(e => e.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+
+            // 
             e.ToTable(name: "Users");
         });
 
         builder.Entity<ApplicationRole>(e =>
         {
-            e.ToTable(name: "UserRoles");
+            // Each Role can have many entries in the UserRole join table
+            e.HasMany(e => e.UserRoles)
+                .WithOne(e => e.Role)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
+
+            // Each Role can have many associated RoleClaims
+            e.HasMany(e => e.RoleClaims)
+                .WithOne(e => e.Role)
+                .HasForeignKey(rc => rc.RoleId)
+                .IsRequired();
+
+            e.ToTable(name: "Roles");
         });
 
-        builder.Entity<IdentityUserClaim<string>>(e =>
+        builder.Entity<ApplicationUserClaim>(e =>
         {
             e.ToTable(name: "UserClaims");
         });
 
-        builder.Entity<IdentityUserLogin<string>>().HasNoKey();
-        builder.Entity<IdentityUserLogin<string>>(e =>
+        builder.Entity<ApplicationUserLogin>(e =>
         {
             e.ToTable(name: "UserLogins");
+            //e.HasNoKey();
         });
 
-        builder.Entity<IdentityRoleClaim<string>>(e =>
+        builder.Entity<ApplicationRoleClaim>(e =>
         {
             e.ToTable(name: "RoleClaims");
         });
 
-        builder.Entity<IdentityUserToken<string>>().HasNoKey();
-        builder.Entity<IdentityUserToken<string>>(e =>
+        builder.Entity<ApplicationUserToken>(e =>
         {
             e.ToTable(name: "UserTokens");
+            //e.HasNoKey();
+        });
+
+        builder.Entity<ApplicationUserRole>(e =>
+        {
+            e.ToTable(name: "UserRoles");
         });
 
         builder.Entity<Category>()

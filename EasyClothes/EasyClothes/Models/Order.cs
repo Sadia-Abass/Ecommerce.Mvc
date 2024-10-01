@@ -6,7 +6,7 @@ namespace EasyClothes.Models
     public class Order
     {
         public long OrderId { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; } = new ApplicationUser();
         [Column(TypeName = "decimal(8,2)")]
         public decimal TotalAmount { get; set; }

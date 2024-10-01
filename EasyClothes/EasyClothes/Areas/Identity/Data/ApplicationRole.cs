@@ -2,8 +2,10 @@
 
 namespace EasyClothes.Areas.Identity.Data
 {
-    public class ApplicationRole : IdentityRole<Guid>
+    public class ApplicationRole : IdentityRole
     {
         public string Description { get; set; } = string.Empty;
+        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+        public virtual ICollection<ApplicationRoleClaim> RoleClaims { get; set; }
     }
 }
