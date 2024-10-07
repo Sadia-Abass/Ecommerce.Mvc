@@ -14,6 +14,6 @@ namespace EasyClothes.Models
         public ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
-        public bool IsDeleted { get; set; }
+        //public bool IsDeleted { get; set; }
     }
 }

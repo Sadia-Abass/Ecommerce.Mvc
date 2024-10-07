@@ -7,6 +7,7 @@ namespace EasyClothes.ViewModels
 {
     public class ProductViewModel
     {
+        public long ProductId { get; set; }
         [Required(ErrorMessage = "Product Name is required")]
         [DisplayName("Product Name")]
         public string Name { get; set; } = string.Empty;
@@ -17,5 +18,7 @@ namespace EasyClothes.ViewModels
         public decimal Price { get; set; }
         public int SubcategoryId { get; set; }
         public Subcategory Subcategory { get; set; } = new Subcategory();
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }
