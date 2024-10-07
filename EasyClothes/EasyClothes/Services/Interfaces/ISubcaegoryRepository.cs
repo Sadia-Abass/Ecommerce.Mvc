@@ -10,5 +10,7 @@ namespace EasyClothes.Services.Interfaces
         Task AddAsync(SubcategoryViewModel subcategoryViewModel);
         Task UpdateAsync(SubcategoryViewModel subcategoryViewModel);
         Task DeleteAsync(long id);
+
+        Task<List<Category>> GetCategoriesAsync();
     }
 }

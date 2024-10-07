@@ -2,6 +2,7 @@
 using EasyClothes.Models;
 using EasyClothes.Services.Interfaces;
 using EasyClothes.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace EasyClothes.Services.Implementations
 {
@@ -73,6 +74,11 @@ namespace EasyClothes.Services.Implementations
             }
             _context.Subcategory.Update(subcategory);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Category>> GetCategoriesAsync()
+        {
+            return await _context.Category.ToListAsync();
         }
     }
 }
