@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using EasyClothes.Areas.Identity.Data;
+using EasyClothes.Services.Interfaces;
+using EasyClothes.Services.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("EasyClothesConnection") ?? throw new InvalidOperationException("Connection string 'EasyClothesConnection' not found.");
@@ -14,10 +16,13 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options => option
     .AddDefaultTokenProviders();
 //var connectionString = builder.Configuration.GetConnectionString("EasyClothesContextConnection") ?? throw new InvalidOperationException("Connection string 'EasyClothesContextConnection' not found.");
 
-
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ISubcaegoryRepository, SubcategoryRepository>();
 
 // Add services to container
 builder.Services.AddControllersWithViews();
+
+
 
 var app = builder.Build();
 
