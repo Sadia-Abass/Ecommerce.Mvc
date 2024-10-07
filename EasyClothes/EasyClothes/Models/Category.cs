@@ -7,6 +7,6 @@
         public ICollection<Subcategory> Subcategories { get; set; } = new List<Subcategory>();
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
-        public bool IsDeleted { get; set; }
+        //public bool IsDeleted { get; set; }
     }
 }
